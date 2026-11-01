@@ -14,6 +14,12 @@ mastery hint does would reject most of them. The one hard rule carried over is
 voice: this writes what the *user* would type, never a description of it
 ("you could ask...") and never the assistant's own voice.
 
+The other is that it never answers the assistant's own question. When a tutor
+ends on a check question ("so how many rows for 100 images?"), the most likely
+next line is the answer itself, and a placeholder that shows it gives the
+exercise away before the learner has tried. There it offers a hint request or
+a clarifying question instead.
+
 Nothing to predict from is a real state, not a failure
 -------------------------------------------------------
 A conversation with no messages yet has nothing for this to work from — that
@@ -130,6 +136,7 @@ Quy tắc:
 - Chỉ trả về đúng 1 dòng duy nhất bằng Tiếng Việt tự nhiên. Không dấu ngoặc kép, không tiền tố, không giải thích.
 - Đóng vai người học (ngôi thứ nhất), tối đa 15 từ, bám sát nội dung trợ lý vừa trả lời.
 - Viết câu người học sẽ nói (ví dụ: "Cho mình 1 ví dụ thực tế dễ hiểu hơn được không?"), tuyệt đối không viết câu của trợ lý.
+- Nếu trợ lý vừa đặt câu hỏi kiểm tra, bài tập, yêu cầu tự giải, dự đoán hoặc tính toán, TUYỆT ĐỐI KHÔNG viết sẵn đáp án, phỏng đoán, con số hay công thức giải bài đó. Hãy viết câu xin gợi ý nhẹ hoặc hỏi làm rõ đề bài (ví dụ: "Gợi ý nhẹ cho mình hướng tiếp cận trước được không?").
 """
 
 _SYSTEM_EN = _SYSTEM_VI
@@ -264,8 +271,16 @@ async def get_ask_hint(session_id: str) -> dict[str, Any]:
 
     An empty hint is a real answer, not an error — a conversation with no
     messages yet, a timeout, a model that answered instead of predicting, all
-    leave the composer's own static placeholder standing.
+    leave the composer's own static placeholder standing. So does the learner
+    having turned the hint off (Settings → Conversation), which is checked
+    before the cache: a line written while it was on must not outlive the
+    switch.
     """
+    from deeptutor.services.settings.starter_settings import ask_hint_enabled
+
+    if not ask_hint_enabled():
+        return AskHint(hint="", session_id=session_id, generated_at=time.time()).to_dict()
+
     material = await _collect(session_id)
     if not material:
         return AskHint(hint="", session_id=session_id, generated_at=time.time()).to_dict()

@@ -28,6 +28,7 @@ import type { SourceChildren, SourceCandidate, SourceLibrary } from '@/hooks/use
 
 import type { Translate } from './format'
 import { useTranslation } from 'react-i18next'
+import { QUICK_MODE_TEMPLATES } from '@/lib/inkgest/mastery-copy'
 
 /**
  * The stored value is still the emoji each icon replaces — only how it's
@@ -47,33 +48,6 @@ const EMBLEMS: { value: string; Icon: typeof Compass }[] = [
   { value: '📐', Icon: Ruler },
   { value: '🌌', Icon: Orbit },
 ]
-
-const QUICK_MODE_TEMPLATES = [
-  {
-    id: 'zero-to-one',
-    badge: '🎯 Học từ con số 0',
-    title: 'Học một mảng mới từ đầu, nắm nhanh phần cốt lõi',
-    emblem: '🧠',
-    template:
-      'Mình muốn học [Tên chủ đề, VD: Lập trình Python / Kinh tế vĩ mô / Machine Learning] từ đầu. Mình muốn hiểu rõ bản chất từng phần chứ không học vẹt, học xong có thể tự áp dụng vào việc thực tế.',
-  },
-  {
-    id: 'project-first',
-    badge: '🛠️ Học để làm dự án',
-    title: 'Đang cần làm một dự án hoặc giải quyết việc cụ thể',
-    emblem: '🧭',
-    template:
-      'Mình đang cần làm [Mô tả dự án hoặc công việc của bạn]. Nhờ bạn lọc ra những phần kiến thức cần thiết nhất để mình vừa học vừa bắt tay vào làm luôn.',
-  },
-  {
-    id: 'doc-grounded',
-    badge: '📚 Học theo tài liệu',
-    title: 'Đọc hiểu sâu & áp dụng sách / tài liệu đính kèm',
-    emblem: '🔭',
-    template:
-      'Mình muốn học kỹ tài liệu đính kèm về [Chủ đề]. Nhờ bạn dẫn dắt từng phần trọng tâm, giải thích những chỗ khó hiểu bằng ví dụ thực tế và ra bài tập để mình tự kiểm tra lại.',
-  },
-] as const
 
 // library.failures records the dashboard request kind; two tabs are named
 // differently from the kind that feeds them. Everything else is identity.

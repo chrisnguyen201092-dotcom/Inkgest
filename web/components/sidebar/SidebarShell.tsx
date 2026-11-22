@@ -35,6 +35,7 @@ import { WorkspaceMenu } from "@/components/sidebar/WorkspaceMenu";
 import { SHORTCUTS, matchesShortcut } from "@/lib/shortcuts";
 import { RecordHeader, useRecordView } from "@/components/sidebar/RecordList";
 import type { LearningSessions } from "@/components/sidebar/LearningNavigation";
+import { INKGEST_BRAND } from "@/lib/inkgest/branding";
 
 // The fallback history list is needed only by shells without organization.
 const SessionList = dynamic(() => import("@/components/SessionList"), { ssr: false });
@@ -302,9 +303,9 @@ export function SidebarShell({
         {/* The open sidebar's header, stood on end: the workspace (with its
             menu of settings and account), the way back out, then search. */}
         {bodySlot ? (
-          <Link href={brandHref} prefetch={false} aria-label="Inkgest" className="dt-rail-brand">
+          <Link href={brandHref} prefetch={false} aria-label={INKGEST_BRAND.name} className="dt-rail-brand">
             <div className="flex h-[24px] w-[24px] items-center justify-center rounded-md bg-foreground text-[11px] font-bold tracking-tight text-background">
-              IK
+              {INKGEST_BRAND.mark}
             </div>
           </Link>
         ) : (
@@ -364,14 +365,14 @@ export function SidebarShell({
         <div className="flex h-[52px] shrink-0 items-center justify-between px-4">
           <Link href={brandHref} prefetch={false} className="group flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-foreground text-[12px] font-bold tracking-tight text-background shadow-sm transition-transform duration-200 group-hover:scale-105">
-              IK
+              {INKGEST_BRAND.mark}
             </div>
             <div className="flex items-baseline gap-1.5">
               <span className="text-[15px] font-semibold tracking-tight text-foreground">
-                Inkgest
+                {INKGEST_BRAND.name}
               </span>
               <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
-                First-Principles
+                {INKGEST_BRAND.badge}
               </span>
             </div>
           </Link>

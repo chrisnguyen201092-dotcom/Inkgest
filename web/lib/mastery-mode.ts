@@ -1,4 +1,5 @@
 import { masterySessionsRoute } from "@/lib/learning-routes";
+import { INKGEST_OUTLINE_OPENING_MESSAGE } from "@/lib/inkgest/mastery-copy";
 /**
  * What a mastery conversation is doing right now — the client's half of
  * ``deeptutor/capabilities/mastery/mode.py``.
@@ -93,9 +94,7 @@ export function masteryOpeningMessage(
   options: { dueTitles?: string[] } = {},
 ): string {
   if (mode === "outline") {
-    return translate(
-      "Mình muốn học chủ đề này. Bạn xem qua mục tiêu của mình rồi lên giúp mình một lộ trình học tinh gọn, tập trung vào những phần cốt lõi quan trọng nhất nhé.",
-    );
+    return translate(INKGEST_OUTLINE_OPENING_MESSAGE);
   }
   if (mode === "review") {
     const due = (options.dueTitles ?? []).filter(Boolean);

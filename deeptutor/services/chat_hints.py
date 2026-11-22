@@ -130,14 +130,7 @@ async def _collect(session_id: str) -> _Material:
 # -- Generation ---------------------------------------------------------------
 
 
-_SYSTEM_VI = """Bạn dự đoán ĐÚNG MỘT câu tiếp theo bằng Tiếng Việt tự nhiên mà người học có khả năng sẽ gõ vào ô chat (dùng làm gợi ý mờ trong ô nhập liệu).
-
-Quy tắc:
-- Chỉ trả về đúng 1 dòng duy nhất bằng Tiếng Việt tự nhiên. Không dấu ngoặc kép, không tiền tố, không giải thích.
-- Đóng vai người học (ngôi thứ nhất), tối đa 15 từ, bám sát nội dung trợ lý vừa trả lời.
-- Viết câu người học sẽ nói (ví dụ: "Cho mình 1 ví dụ thực tế dễ hiểu hơn được không?"), tuyệt đối không viết câu của trợ lý.
-- Nếu trợ lý vừa đặt câu hỏi kiểm tra, bài tập, yêu cầu tự giải, dự đoán hoặc tính toán, TUYỆT ĐỐI KHÔNG viết sẵn đáp án, phỏng đoán, con số hay công thức giải bài đó. Hãy viết câu xin gợi ý nhẹ hoặc hỏi làm rõ đề bài (ví dụ: "Gợi ý nhẹ cho mình hướng tiếp cận trước được không?").
-"""
+from deeptutor.inkgest.prompts import CHAT_HINT_SYSTEM_VI as _SYSTEM_VI
 
 _SYSTEM_EN = _SYSTEM_VI
 _SYSTEM_ZH = _SYSTEM_VI

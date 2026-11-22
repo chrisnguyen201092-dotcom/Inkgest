@@ -2,6 +2,10 @@
 
 import { scopedUrl } from "@/lib/workspace-scope";
 import { MASTERY_HOME, masterySessionsRoute, masteryTopicRoute } from "@/lib/learning-routes";
+import {
+  INKGEST_MODE_PRESENTATION,
+  INKGEST_STARTER_KEYS,
+} from "@/lib/inkgest/mastery-copy";
 
 import { browserStorage } from "@/shared/storage";
 import Tooltip from "@/shared/ui/Tooltip";
@@ -78,38 +82,7 @@ const OUTLINE_STORAGE_KEY = "dt.mastery.outline";
  * waiting for them to work out what to type. The work is already agreed; the
  * session should be doing it.
  */
-const MODE_PRESENTATION: Record<
-  MasteryMode,
-  {
-    /** One line under the header: what this mode is and is not. */
-    noteKey: string;
-    /** The empty conversation's heading and the line under it. */
-    emptyTitleKey: string;
-    emptyBodyKey: string;
-  }
-> = {
-  outline: {
-    noteKey: "Đang ở bước lên khung lộ trình học. Khi đã ưng ý với lộ trình, bạn bấm 'Bắt đầu học ngay' để vào bài đầu tiên nhé.",
-    emptyTitleKey: "Lên khung lộ trình học",
-    emptyBodyKey:
-      "Mình sẽ dựa trên mục tiêu (và tài liệu nếu có) để lọc ra những phần cốt lõi nhất, sắp xếp theo trình tự dễ hiểu từ gốc đến ngọn.",
-  },
-  study: {
-    noteKey: "",
-    // Study's heading is the waypoint itself; these are only its body and
-    // are never read for the title.
-    emptyTitleKey: "",
-    emptyBodyKey:
-      "Đi từ bài toán thực tế, hiểu rõ bản chất bên dưới, sau đó tự tay giải quyết các tình huống và bài tập vận dụng.",
-  },
-  review: {
-    noteKey:
-      "Chế độ Ôn tập — kiểm tra lại các phần đã học qua tình huống thực tế mới để nhớ lâu hơn.",
-    emptyTitleKey: "Ôn lại các phần đã học",
-    emptyBodyKey:
-      "Thử sức lại với các bài đến hạn ôn tập bằng những câu hỏi vận dụng mới.",
-  },
-};
+const MODE_PRESENTATION = INKGEST_MODE_PRESENTATION;
 
 const MasteryComposer = dynamic(
   () => import("./MasteryComposer").then(module => module.MasteryComposer),
@@ -129,25 +102,23 @@ const SaveToNotebookModal = dynamic(
 );
 
 /** Ways in, per mode. What "start" means is not the same in all three. */
+const STARTER_ICONS = [Compass, Sparkles, Flag] as const;
 const STARTERS: Record<
   MasteryMode,
   readonly { icon: typeof Compass; key: string }[]
 > = {
-  outline: [
-    { icon: Compass, key: "Lên giúp mình lộ trình học gọn, đi thẳng vào những phần cốt lõi nhất" },
-    { icon: Sparkles, key: "Hỏi nhanh mình vài câu về nền tảng hiện tại để chỉnh lộ trình cho vừa sức" },
-    { icon: Flag, key: "Lộ trình ổn rồi, mình bắt đầu học bài đầu tiên luôn nhé" },
-  ],
-  study: [
-    { icon: Compass, key: "Ra thử 1 câu bài tập xem phần này mình đã nắm được chưa" },
-    { icon: Sparkles, key: "Giải thích phần này từ bài toán thực tế cho dễ hình dung" },
-    { icon: Flag, key: "Cho mình một bài tập vận dụng thực tế để tự làm thử" },
-  ],
-  review: [
-    { icon: Compass, key: "Ôn lại các bài đến hạn hôm nay qua tình huống thực tế mới" },
-    { icon: Sparkles, key: "Kiểm tra lại những chỗ hôm trước mình hay nhầm" },
-    { icon: Flag, key: "Ra một bài tổng hợp kết hợp các phần mình đã học" },
-  ],
+  outline: INKGEST_STARTER_KEYS.outline.map((key, index) => ({
+    icon: STARTER_ICONS[index],
+    key,
+  })),
+  study: INKGEST_STARTER_KEYS.study.map((key, index) => ({
+    icon: STARTER_ICONS[index],
+    key,
+  })),
+  review: INKGEST_STARTER_KEYS.review.map((key, index) => ({
+    icon: STARTER_ICONS[index],
+    key,
+  })),
 };
 
 /**

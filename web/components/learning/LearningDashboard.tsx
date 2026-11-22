@@ -31,6 +31,7 @@ import {
 import { LearningCard } from './LearningCard'
 import { LearningWays } from './LearningWays'
 import { LEARNING_SURFACES, learningSurface } from './surfaces'
+import { INKGEST_DASHBOARD_COPY } from '@/lib/inkgest/mastery-copy'
 
 export function LearningDashboard() {
   const router = useRouter()
@@ -51,7 +52,7 @@ export function LearningDashboard() {
       <LearningShell
         back={false}
         title={t('navigation.learning')}
-        subtitle={t('Học sâu bản chất, nắm chắc phần cốt lõi và rèn kỹ năng thực tế cho mọi lĩnh vực.')}
+        subtitle={t(INKGEST_DASHBOARD_COPY.subtitle)}
         action={
           <div className="flex items-center gap-2">
             <button
@@ -63,7 +64,7 @@ export function LearningDashboard() {
               className="inline-flex h-9 items-center gap-2 rounded-xl bg-[var(--primary)] px-3.5 text-xs font-medium text-[var(--primary-foreground)] shadow-sm transition hover:opacity-90"
             >
               <Plus size={15} />
-              <span>{t('Tạo lộ trình học mới')}</span>
+              <span>{t(INKGEST_DASHBOARD_COPY.createButtonLabel)}</span>
             </button>
             <LearningCreateMenu />
           </div>
@@ -164,8 +165,8 @@ export function LearningDashboard() {
             {!all.length && failed.length === 0 && <LearningWays />}
             {!recent.length && failed.length === 0 && (
               <LearningEmptyState
-                title={t(all.length ? 'navigation.noResults' : 'Bạn muốn học gì hôm nay?')}
-                description={t('Bấm nút bên dưới để bắt đầu một chủ đề mới từ con số 0, học để làm dự án thực tế, hoặc học kèm với sách/tài liệu của bạn.')}
+                title={t(all.length ? 'navigation.noResults' : INKGEST_DASHBOARD_COPY.emptyTitle)}
+                description={t(INKGEST_DASHBOARD_COPY.emptyDescription)}
                 action={
                   <button
                     type="button"
@@ -176,7 +177,7 @@ export function LearningDashboard() {
                     className="inline-flex h-10 items-center gap-2 rounded-xl bg-[var(--primary)] px-5 text-sm font-medium text-[var(--primary-foreground)] shadow-sm transition hover:opacity-90"
                   >
                     <Sparkles size={16} />
-                    <span>{t('Tạo lộ trình học mới')}</span>
+                    <span>{t(INKGEST_DASHBOARD_COPY.createButtonLabel)}</span>
                   </button>
                 }
               />

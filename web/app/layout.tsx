@@ -10,6 +10,7 @@ import SettingsReturnTracker from "@/components/settings/SettingsReturnTracker";
 import { WorkspaceNavigation } from "@/components/workspaces/WorkspaceNavigation";
 import { AppShellProvider } from "@/context/AppShellContext";
 import { I18nClientBridge } from "@/i18n/I18nClientBridge";
+import { INKGEST_BRAND } from "@/lib/inkgest/branding";
 
 // Geist matches the public site (deeptutor.info) and stays crisp at the
 // small UI sizes the composer/toolbars use, unlike the rounder Jakarta.
@@ -28,8 +29,8 @@ const fontSerif = Lora({
 export const viewport: Viewport = { interactiveWidget: "resizes-content" };
 
 export const metadata: Metadata = {
-  title: "Inkgest — First-Principles Mastery",
-  description: "Universal First-Principles Mastery Engine",
+  title: INKGEST_BRAND.title,
+  description: INKGEST_BRAND.description,
   icons: {
     icon: [
       { url: "/brand/favicon-16x16.png", sizes: "16x16", type: "image/png" },

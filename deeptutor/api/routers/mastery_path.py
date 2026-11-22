@@ -14,6 +14,7 @@ from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel, Field, StrictInt
 from pydantic import ValidationError as PydanticValidationError
 
+from deeptutor.inkgest.prompts import clean_vietnamese_provisional_name
 from deeptutor.learning import policy as learning_policy
 from deeptutor.learning import prompts as learning_prompts
 from deeptutor.learning.models import (
@@ -576,16 +577,7 @@ def _provisional_name(goal: str) -> str:
     without an outline to borrow a module name from.
     """
     head = re.split(r"[\n。.!?！？;；]", str(goal or "").strip(), maxsplit=1)[0].strip()
-    head = re.sub(
-        r"^(?:tôi|mình|em)\s+(?:muốn|cần|đang\s+cần|đang\s+muốn)\s+"
-        r"(?:làm\s+chủ|học\s+kỹ|học|nắm\s+vững|nắm\s+trọn|tìm\s+hiểu|giải\s+quyết|xây\s+dựng)\s+"
-        r"(?:lĩnh\s+vực|chủ\s+đề|mảng|bài\s+toán|dự\s+án|tài\s+liệu\s+đính\s+kèm\s+về)?\s*:?\s*",
-        "",
-        head,
-        flags=re.IGNORECASE,
-    ).strip()
-    if head:
-        head = head[0].upper() + head[1:]
+    head = clean_vietnamese_provisional_name(head)
     if not head:
         return ""
     if len(head) <= _PROVISIONAL_NAME_CHARS:

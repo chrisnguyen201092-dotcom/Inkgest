@@ -9,6 +9,7 @@ import Tooltip from '@/shared/ui/Tooltip'
 import { useWorkspaceChoices } from '@/components/workspaces/useWorkspaceChoices'
 import { VersionBadge } from '@/components/sidebar/VersionBadge'
 import { clientEditionLabel } from '@/lib/version'
+import { INKGEST_BRAND } from '@/lib/inkgest/branding'
 
 const GLYPH_TINTS = ['#e3655b', '#d9822b', '#c9a227', '#4f9d69', '#3d8fb8', '#6c6fd1', '#a35fc0', '#c25b8a']
 
@@ -21,7 +22,7 @@ export function WorkspaceGlyph({ name, general, size = 22 }: { name: string; gen
         className="dt-workspace-glyph is-general flex items-center justify-center rounded-md bg-foreground text-[11px] font-bold tracking-tight text-background"
         style={{ width: size, height: size }}
       >
-        IK
+        {INKGEST_BRAND.mark}
       </span>
     )
   let hash = 0
@@ -95,13 +96,13 @@ export function WorkspaceMenu({
   return (
     <div ref={rootRef} className={`dt-workspace-menu ${compact ? 'is-rail' : ''}`}>
       {compact ? (
-        <Tooltip label={active ? currentName : 'Inkgest'} description={t('Manage workspaces')} side="right" suppressed={open}>
+        <Tooltip label={active ? currentName : INKGEST_BRAND.name} description={t('Manage workspaces')} side="right" suppressed={open}>
           <button
             type="button"
             aria-haspopup="menu"
             aria-expanded={open}
             aria-controls={menuId}
-            aria-label={active ? currentName : 'Inkgest'}
+            aria-label={active ? currentName : INKGEST_BRAND.name}
             onClick={() => setOpen(value => !value)}
             className="dt-workspace-trigger"
           >
@@ -120,9 +121,9 @@ export function WorkspaceMenu({
           <WorkspaceGlyph name={currentName} general={!active} />
           {!active ? (
             <span className="flex min-w-0 flex-1 items-baseline gap-1.5 truncate text-left">
-              <span className="font-semibold tracking-tight text-foreground">Inkgest</span>
+              <span className="font-semibold tracking-tight text-foreground">{INKGEST_BRAND.name}</span>
               <span className="rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
-                First-Principles
+                {INKGEST_BRAND.badge}
               </span>
             </span>
           ) : (

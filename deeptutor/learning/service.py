@@ -5,6 +5,7 @@ import time
 from typing import TYPE_CHECKING, Any, Literal
 import uuid
 
+from deeptutor.inkgest.prompts import QUALITATIVE_EXPECTED_ANSWER, QUALITATIVE_PROMPT_PREFIX
 from deeptutor.learning.grading import classify_error, grade_answer
 from deeptutor.learning.mastery import compute_mastery
 from deeptutor.learning.models import (
@@ -3169,13 +3170,8 @@ class LearningService:
                     {
                         "question_id": kp_id,
                         "assessment_type": "qualitative",
-                        "prompt": "Explain or synthesize this objective from first principles in your own words: " + kp.name,
-                        "expected_answer": (
-                            "A rigorous First-Principles explanation, design synthesis, or causal analysis of the objective "
-                            "and its relationships (how/why it works under the hood, trade-offs/boundary conditions, or "
-                            "concrete synthesis). Do not infer mastery from surface keyword repetition, vague acknowledgements, "
-                            "or requests."
-                        ),
+                        "prompt": QUALITATIVE_PROMPT_PREFIX + kp.name,
+                        "expected_answer": QUALITATIVE_EXPECTED_ANSWER,
                         "objective": kp.model_dump(),
                         "module_id": module_id,
                         "answer": answer,

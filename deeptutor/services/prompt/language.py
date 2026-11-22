@@ -19,6 +19,8 @@ _LANGUAGE_LABELS: dict[str, str] = {
     "pl": "Polski",
     "ms": "Bahasa Melayu",
     "tr": "Türkçe",
+    "hi": "हिन्दी",
+    "hu": "Magyar",
 }
 
 _VI_PEDAGOGICAL_STYLE = (
